@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="UniversidadCreateDlg" widgetVar="UniversidadCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateUniversidadTitle}">
+            <h:form id="UniversidadCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{universidadController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateUniversidadLabel_codigoUniversidad}" for="codigoUniversidad" />
+                        <p:inputText id="codigoUniversidad" value="#{universidadController.selected.codigoUniversidad}" title="#{bundle.CreateUniversidadTitle_codigoUniversidad}" required="true" requiredMessage="#{bundle.CreateUniversidadRequiredMessage_codigoUniversidad}"/>
+                        <p:outputLabel value="#{bundle.CreateUniversidadLabel_nombre}" for="nombre" />
+                        <p:inputText id="nombre" value="#{universidadController.selected.nombre}" title="#{bundle.CreateUniversidadTitle_nombre}" required="true" requiredMessage="#{bundle.CreateUniversidadRequiredMessage_nombre}"/>
+                        <p:outputLabel value="#{bundle.CreateUniversidadLabel_sectorCodigoSector}" for="sectorCodigoSector" />
+                        <p:selectOneMenu id="sectorCodigoSector" value="#{universidadController.selected.sectorCodigoSector}" required="true" requiredMessage="#{bundle.EditUniversidadRequiredMessage_sectorCodigoSector}">
+                            <f:selectItems value="#{sectorController.itemsAvailableSelectOne}"
+                                           var="sectorCodigoSectorItem"
+                                           itemValue="#{sectorCodigoSectorItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{universidadController.create}" value="#{bundle.Save}" update="display,:UniversidadListForm:datalist,:growl" oncomplete="handleSubmit(args,'UniversidadCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="UniversidadCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

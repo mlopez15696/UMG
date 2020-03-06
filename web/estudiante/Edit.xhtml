@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="EstudianteEditDlg" widgetVar="EstudianteEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditEstudianteTitle}">
+            <h:form id="EstudianteEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{estudianteController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditEstudianteLabel_codigoEstudiante}" for="codigoEstudiante" />
+                        <p:inputText id="codigoEstudiante" value="#{estudianteController.selected.codigoEstudiante}" title="#{bundle.EditEstudianteTitle_codigoEstudiante}" required="true" requiredMessage="#{bundle.EditEstudianteRequiredMessage_codigoEstudiante}"/>
+                        <p:outputLabel value="#{bundle.EditEstudianteLabel_nombreEstudiante}" for="nombreEstudiante" />
+                        <p:inputText id="nombreEstudiante" value="#{estudianteController.selected.nombreEstudiante}" title="#{bundle.EditEstudianteTitle_nombreEstudiante}" required="true" requiredMessage="#{bundle.EditEstudianteRequiredMessage_nombreEstudiante}"/>
+                        <p:outputLabel value="#{bundle.EditEstudianteLabel_edad}" for="edad" />
+                        <p:inputText id="edad" value="#{estudianteController.selected.edad}" title="#{bundle.EditEstudianteTitle_edad}" required="true" requiredMessage="#{bundle.EditEstudianteRequiredMessage_edad}"/>
+                        <p:outputLabel value="#{bundle.EditEstudianteLabel_correoElectronico}" for="correoElectronico" />
+                        <p:inputText id="correoElectronico" value="#{estudianteController.selected.correoElectronico}" title="#{bundle.EditEstudianteTitle_correoElectronico}" required="true" requiredMessage="#{bundle.EditEstudianteRequiredMessage_correoElectronico}"/>
+                        <p:outputLabel value="#{bundle.EditEstudianteLabel_telefono}" for="telefono" />
+                        <p:inputText id="telefono" value="#{estudianteController.selected.telefono}" title="#{bundle.EditEstudianteTitle_telefono}" required="true" requiredMessage="#{bundle.EditEstudianteRequiredMessage_telefono}"/>
+                        <p:outputLabel value="#{bundle.EditEstudianteLabel_carreraCodigoCarrera}" for="carreraCodigoCarrera" />
+                        <p:selectOneMenu id="carreraCodigoCarrera" value="#{estudianteController.selected.carreraCodigoCarrera}" required="true" requiredMessage="#{bundle.EditEstudianteRequiredMessage_carreraCodigoCarrera}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{carreraController.itemsAvailableSelectOne}"
+                                           var="carreraCodigoCarreraItem"
+                                           itemValue="#{carreraCodigoCarreraItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditEstudianteLabel_generoCodigoGenero}" for="generoCodigoGenero" />
+                        <p:selectOneMenu id="generoCodigoGenero" value="#{estudianteController.selected.generoCodigoGenero}" required="true" requiredMessage="#{bundle.EditEstudianteRequiredMessage_generoCodigoGenero}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{generoController.itemsAvailableSelectOne}"
+                                           var="generoCodigoGeneroItem"
+                                           itemValue="#{generoCodigoGeneroItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditEstudianteLabel_universidadCodigoUniversidad}" for="universidadCodigoUniversidad" />
+                        <p:selectOneMenu id="universidadCodigoUniversidad" value="#{estudianteController.selected.universidadCodigoUniversidad}" required="true" requiredMessage="#{bundle.EditEstudianteRequiredMessage_universidadCodigoUniversidad}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{universidadController.itemsAvailableSelectOne}"
+                                           var="universidadCodigoUniversidadItem"
+                                           itemValue="#{universidadCodigoUniversidadItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{estudianteController.update}" value="#{bundle.Save}" update="display,:EstudianteListForm:datalist,:growl" oncomplete="handleSubmit(args, 'EstudianteEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="EstudianteEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

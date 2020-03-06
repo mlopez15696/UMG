@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CarreraEditDlg" widgetVar="CarreraEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditCarreraTitle}">
+            <h:form id="CarreraEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{carreraController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditCarreraLabel_codigoCarrera}" for="codigoCarrera" />
+                        <p:inputText id="codigoCarrera" value="#{carreraController.selected.codigoCarrera}" title="#{bundle.EditCarreraTitle_codigoCarrera}" required="true" requiredMessage="#{bundle.EditCarreraRequiredMessage_codigoCarrera}"/>
+                        <p:outputLabel value="#{bundle.EditCarreraLabel_nombreCarrera}" for="nombreCarrera" />
+                        <p:inputText id="nombreCarrera" value="#{carreraController.selected.nombreCarrera}" title="#{bundle.EditCarreraTitle_nombreCarrera}" required="true" requiredMessage="#{bundle.EditCarreraRequiredMessage_nombreCarrera}"/>
+                        <p:outputLabel value="#{bundle.EditCarreraLabel_ubicacion}" for="ubicacion" />
+                        <p:inputText id="ubicacion" value="#{carreraController.selected.ubicacion}" title="#{bundle.EditCarreraTitle_ubicacion}" required="true" requiredMessage="#{bundle.EditCarreraRequiredMessage_ubicacion}"/>
+                        <p:outputLabel value="#{bundle.EditCarreraLabel_duracion}" for="duracion" />
+                        <p:inputText id="duracion" value="#{carreraController.selected.duracion}" title="#{bundle.EditCarreraTitle_duracion}" required="true" requiredMessage="#{bundle.EditCarreraRequiredMessage_duracion}"/>
+                        <p:outputLabel value="#{bundle.EditCarreraLabel_plan}" for="plan" />
+                        <p:inputText id="plan" value="#{carreraController.selected.plan}" title="#{bundle.EditCarreraTitle_plan}" required="true" requiredMessage="#{bundle.EditCarreraRequiredMessage_plan}"/>
+                        <p:outputLabel value="#{bundle.EditCarreraLabel_sectorCodigoSector}" for="sectorCodigoSector" />
+                        <p:selectOneMenu id="sectorCodigoSector" value="#{carreraController.selected.sectorCodigoSector}" required="true" requiredMessage="#{bundle.EditCarreraRequiredMessage_sectorCodigoSector}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{sectorController.itemsAvailableSelectOne}"
+                                           var="sectorCodigoSectorItem"
+                                           itemValue="#{sectorCodigoSectorItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditCarreraLabel_universidadCodigoUniversidad}" for="universidadCodigoUniversidad" />
+                        <p:selectOneMenu id="universidadCodigoUniversidad" value="#{carreraController.selected.universidadCodigoUniversidad}" required="true" requiredMessage="#{bundle.EditCarreraRequiredMessage_universidadCodigoUniversidad}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{universidadController.itemsAvailableSelectOne}"
+                                           var="universidadCodigoUniversidadItem"
+                                           itemValue="#{universidadCodigoUniversidadItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{carreraController.update}" value="#{bundle.Save}" update="display,:CarreraListForm:datalist,:growl" oncomplete="handleSubmit(args, 'CarreraEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="CarreraEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
